@@ -20,13 +20,31 @@ io.on('connection',(socket)=>{
     socket.on('disconnect',function(){
         console.log("user was disconnected..");
     });
+
+    //hello from admin
+    socket.emit('newMsg',{
+        from:"admin",
+        text:"you are welcome",
+        createdAt:new Date().getTime(),
+    })
+    //notify to admin ...new user joined
+    socket.broadcast.emit('newMsg',{
+        from:"soemone",
+        text:"user joined",
+        createdAt: new Date().getTime()
+    });
     
     socket.on('createMsg',function(msg){
         console.log(msg.text);
-        io.emit('newMsg',{
+        // io.emit('newMsg',{
+        //     from:msg.from,
+        //     text:msg.text,
+        // createdAt:new Date().getTime()
+        // });
+        socket.broadcast.emit('newMsg',{
             from:msg.from,
             text:msg.text,
-           // createdAt:new date.getTime()
+            createdAt: new Date().getTime()
         });
     });
 });

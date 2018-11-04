@@ -12,4 +12,5 @@ socket.on('disconnect', function () {
 
 socket.on('newMsg', function (msg) {
   console.log( msg.text);
+  console.log( msg.createdAt);
 });
