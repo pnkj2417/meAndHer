@@ -2,6 +2,7 @@ var express             =require('express');
 var app                  =express();
 const socketIO          =require('socket.io');
 const http              =require('http');
+const {generateMsg}     =require('./utils/message');
 
 const path=require('path');
 const publicPath=path.join(__dirname,"../public");
@@ -22,17 +23,9 @@ io.on('connection',(socket)=>{
     });
 
     //hello from admin
-    socket.emit('newMsg',{
-        from:"admin",
-        text:"you are welcome",
-        createdAt:new Date().getTime(),
-    })
+    socket.emit('newMsg',generateMsg('Admin','Welcome to your kingdom'));
     //notify to admin ...new user joined
-    socket.broadcast.emit('newMsg',{
-        from:"soemone",
-        text:"user joined",
-        createdAt: new Date().getTime()
-    });
+    socket.broadcast.emit('newMsg',generateMsg('Admin','Soldier is available for service'));
     
     socket.on('createMsg',function(msg){
         console.log(msg.text);
@@ -41,11 +34,7 @@ io.on('connection',(socket)=>{
         //     text:msg.text,
         // createdAt:new Date().getTime()
         // });
-        socket.broadcast.emit('newMsg',{
-            from:msg.from,
-            text:msg.text,
-            createdAt: new Date().getTime()
-        });
+        socket.broadcast.emit('newMsg',generateMsg(msg.from,msg.text));
     });
 });
 
