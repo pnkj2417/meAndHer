@@ -24,8 +24,8 @@ io.on('connection',(socket)=>{
     socket.on('createMsg',function(msg){
         console.log(msg.text);
         io.emit('newMsg',{
-            from:"pankaj",
-            text:"a message",
+            from:msg.from,
+            text:msg.text,
            // createdAt:new date.getTime()
         });
     });
