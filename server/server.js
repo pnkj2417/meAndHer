@@ -23,18 +23,20 @@ io.on('connection',(socket)=>{
     });
 
     //hello from admin
-    socket.emit('newMsg',generateMsg('Admin','Welcome to your kingdom'));
+    socket.emit('newMsg',generateMsg('Soldier','Welcome ,your Majesty !!'));
     //notify to admin ...new user joined
     socket.broadcast.emit('newMsg',generateMsg('Admin','Soldier is available for service'));
     
-    socket.on('createMsg',function(msg){
+    socket.on('createMsg',function(msg,callback){
         console.log(msg.text);
         // io.emit('newMsg',{
         //     from:msg.from,
         //     text:msg.text,
         // createdAt:new Date().getTime()
         // });
-        socket.broadcast.emit('newMsg',generateMsg(msg.from,msg.text));
+        io.emit('newMsg',generateMsg(msg.from,msg.text));
+        callback('this is from server');
+
     });
 });
 
