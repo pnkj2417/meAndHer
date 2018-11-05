@@ -2,7 +2,7 @@ var express             =require('express');
 var app                  =express();
 const socketIO          =require('socket.io');
 const http              =require('http');
-const {generateMsg}     =require('./utils/message');
+const {generateMsg,generateLocationMsg}     =require('./utils/message');
 
 const path=require('path');
 const publicPath=path.join(__dirname,"../public");
@@ -29,16 +29,16 @@ io.on('connection',(socket)=>{
     
     socket.on('createMsg',function(msg,callback){
         console.log(msg.text);
-        // io.emit('newMsg',{
-        //     from:msg.from,
-        //     text:msg.text,
-        // createdAt:new Date().getTime()
-        // });
+       
         io.emit('newMsg',generateMsg(msg.from,msg.text));
         callback('this is from server');
-
     });
+
+    socket.on('createLocationMessage',function(coords){
+        io.emit('newLocationMsg',generateLocationMsg('Admin',coords.latitude,coords.longitude));
+    })
 });
+
 
 
 
