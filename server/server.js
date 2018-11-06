@@ -50,7 +50,7 @@ if(params.name=="Doxab")
 socket.emit('newMsg',generateMsg('Compounder','Welcome ,Doxab !!'));
 else
        socket.emit('newMsg',generateMsg('Admin','Welcome !!'));
-
+       if(params.name=="Doxab")
     socket.broadcast.to(params.room).emit('newMsg',generateMsg('Compounder','Available for service mam !!'));
 callback();
    });
