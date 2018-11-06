@@ -55,8 +55,6 @@ if(params.name=="Doxab")
 else
        socket.emit('newMsg',generateMsg('Admin','Welcome !!'));
        
-       
-   
 callback();
    });
     
