@@ -20,6 +20,7 @@ app.get('/',function(req,res){
 
 var io=socketIO(server);
 io.on('connection',(socket)=>{
+    
     //code to run as new user connected..
     //console.log("new user connected");
     socket.on('disconnect',function(){
@@ -47,11 +48,15 @@ users.removeUser(socket.id);
 users.addUser(socket.id,params.name,params.room);
 io.to(params.room).emit('updateUserList',users.getUserList(params.room));
 if(params.name=="Doxab")
-socket.emit('newMsg',generateMsg('Compounder','Welcome ,Doxab !!'));
+{
+    socket.emit('newMsg',generateMsg('Compounder','Welcome ,Doxab !!'));
+
+}
 else
        socket.emit('newMsg',generateMsg('Admin','Welcome !!'));
-       if(params.name=="Doxab")
-    socket.broadcast.to(params.room).emit('newMsg',generateMsg('Compounder','Available for service mam !!'));
+       
+       
+   
 callback();
    });
     
