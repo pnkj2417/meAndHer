@@ -75,7 +75,7 @@ jQuery('#message-form').on('submit',function(e){
     e.preventDefault();
     var messageTextbox=jQuery('[name=message]');
     socket.emit('createMsg',{
-        from:'Soldier',
+        
         text:messageTextbox.val()
     },function(){
         messageTextbox.val('')

@@ -52,14 +52,22 @@ callback();
    });
     
     socket.on('createMsg',function(msg,callback){
-        console.log(msg.text);
+       var user=users.getUser(socket.id);
+       if(user && isRealString(msg.text))
+       {
+           io.to(user.room).emit('newMsg',generateMsg(user.name,msg.text));
+       }
        
-        io.emit('newMsg',generateMsg(msg.from,msg.text));
         callback();
     });
 
     socket.on('createLocationMessage',function(coords){
-        io.emit('newLocationMsg',generateLocationMsg('Admin',coords.latitude,coords.longitude));
+        var user=users.getUser(socket.id);
+        if(user)
+        {
+            io.to(user.room).emit('newLocationMsg',generateLocationMsg(user.name,coords.latitude,coords.longitude));
+        }
+        
     })
 });
 
