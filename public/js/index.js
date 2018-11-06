@@ -11,21 +11,29 @@ socket.on('disconnect', function () {
 });
 
 socket.on('newMsg', function (msg) {
-  console.log( msg.text);
-  console.log( msg.createdAt);
-  var li=jQuery('<li></li>');
-  li.text(`${msg.from}: ${msg.text}`);
-  jQuery('#messages').append(li);
+    var formattedTime=moment(msg.createdAt).format('h:mm a');
+
+var template=jQuery('#message-template').html();
+var html=Mustache.render(template,{
+    text:msg.text,
+    from:msg.from,
+    createdAt:formattedTime
+     });
+jQuery('#messages').append(html);
+
+
 });
 
 socket.on('newLocationMsg',function(message){
-    var li =jQuery('<li></li>');
-    var a=jQuery('<a target="_blank">My current location</a>');
+    var formattedTime=moment(message.createdAt).format('h:mm a');
+    var template=jQuery('#location-message-template').html();
+var html=Mustache.render(template,{
+    from:message.from,
+    createdAt:formattedTime,
+    url:message.url
+     });
+jQuery('#messages').append(html);
 
-    li.text(`${message.from}: `);
-    a.attr('href',message.url);
-    li.append(a);
-    jQuery('#messages').append(a);
 })
 
 jQuery('#message-form').on('submit',function(e){
