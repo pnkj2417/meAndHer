@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
 
 <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/moreStyle.css">
+<!-- <script>
+document.getElementById("pic").innerHTML="jdbkjbd"
+</script> -->
 </head>
 <body class ="chat">
     <div class="chat__sidebar">
@@ -24,11 +28,12 @@
     <script id ="message-template" type="text/template">
     <li class="message">
         <div class="message__title">
-            <h4>{{from}}</h4>
+            <!-- <img src=""> -->
+            <img src="{{from}}" class="img">
             <span>{{createdAt}}</span>
         </div>
         <div class="message__body">
-            <p>{{text}}</p>
+            <p class="{{class}}">{{text}}</p>
         </div>
 
     </li>
@@ -36,12 +41,14 @@
 
         <script id ="location-message-template" type="text/template">
             <li class="message">
-                <div class="message__title">
-                    <h4>{{from}}</h4>
+                <div class="message__title" >
+                        <img class="img" src="{{from}}"   >
                     <span>{{createdAt}}</span>
+                   
+                       
                 </div>
                 <div class="message__body">
-                    <a href="{{url}}" target="_blank">My current location</a>
+                    <a class ="{{class}}" href="{{url}}" target="_blank">My current location</a>
                 </div>
         
             </li>

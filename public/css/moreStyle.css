@@ -1,0 +1,29 @@
+
+ .more{
+/* text-align: right;
+float:right; */
+background-color:  #80ffaa;
+word-wrap: break-word;
+    max-width: 100%;
+    width: fit-content;
+    padding: 3px;
+    border-radius: 15px;
+
+} 
+.more2{
+    /* text-align: left;
+    float:left; */
+    background-color:  #c1f0f0;
+    word-wrap: break-word;
+    max-width: 100%;
+    width: fit-content;
+    padding: 3px;
+    border-radius: 15px;
+
+}
+.img{
+    
+        border-radius: 50%;
+        width:30px;
+        height:30px
+}

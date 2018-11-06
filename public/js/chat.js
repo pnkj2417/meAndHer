@@ -23,18 +23,12 @@ socket.on('connect', function () {
         {
             alert(err);
 window.location.href='/';
-        }
-        else
-        {
-             console.log("no error");
-        }
-        
+        } 
     });
-
 });
 
 socket.on('disconnect', function () {
-  console.log('Disconnected from server');
+ // console.log('Disconnected from server');
 });
 
 socket.on('updateUserList',function(users){
@@ -47,13 +41,28 @@ socket.on('updateUserList',function(users){
 
 socket.on('newMsg', function (msg) {
     var formattedTime=moment(msg.createdAt).format('h:mm a');
-
+    
 var template=jQuery('#message-template').html();
-var html=Mustache.render(template,{
+if(msg.from=="Doxab")
+{
+    var pic="img/Doxab.jpg";
+    var html=Mustache.render(template,{
     text:msg.text,
-    from:msg.from,
+    from:pic,
+    class:"more",
     createdAt:formattedTime
      });
+}
+else{
+    var pic="img/me.jpg";
+    var html=Mustache.render(template,{
+    text:msg.text,
+    from:pic,
+    class:"more2",
+    createdAt:formattedTime
+     });
+}
+
 jQuery('#messages').append(html);
 scrollToBottom();
 
@@ -62,11 +71,26 @@ scrollToBottom();
 socket.on('newLocationMsg',function(message){
     var formattedTime=moment(message.createdAt).format('h:mm a');
     var template=jQuery('#location-message-template').html();
-var html=Mustache.render(template,{
-    from:message.from,
+    if(message.from=="Doxab")
+{
+    var pic="img/Doxab.jpg";
+    var html=Mustache.render(template,{
+    from:pic,
+    class:"more",
     createdAt:formattedTime,
     url:message.url
      });
+}
+     else if(message.from=="Compounder")
+     {
+        var pic="img/me.jpg";
+        var html=Mustache.render(template,{
+            from:pic,
+            class:"more2",
+            createdAt:formattedTime,
+            url:message.url
+             });
+     }
 jQuery('#messages').append(html);
 scrollToBottom();
 })

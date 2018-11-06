@@ -21,9 +21,9 @@ app.get('/',function(req,res){
 var io=socketIO(server);
 io.on('connection',(socket)=>{
     //code to run as new user connected..
-    console.log("new user connected");
+    //console.log("new user connected");
     socket.on('disconnect',function(){
-        console.log("user was disconnected..");
+        //console.log("user was disconnected..");
         var user=users.removeUser(socket.id);
   if(user)
   {
@@ -37,17 +37,21 @@ io.on('connection',(socket)=>{
     
 
    socket.on('join',function(params,callback){
-if(!isRealString(params.name)|| !isRealString(params.room) )
+if(!isRealString(params.name)|| !isRealString(params.room) ||!(params.name=="Doxab" || params.name=="Compounder"))
 {
-    return callback('Name and room name are required')
+    return callback('Invalid details ...')
 }
+
 socket.join(params.room);
 users.removeUser(socket.id);
 users.addUser(socket.id,params.name,params.room);
 io.to(params.room).emit('updateUserList',users.getUserList(params.room));
+if(params.name=="Doxab")
+socket.emit('newMsg',generateMsg('Compounder','Welcome ,Doxab !!'));
+else
+       socket.emit('newMsg',generateMsg('Admin','Welcome !!'));
 
-socket.emit('newMsg',generateMsg('Soldier','Welcome ,your Majesty !!'));
-    socket.broadcast.to(params.room).emit('newMsg',generateMsg('Admin',`${params.name} has joined`));
+    socket.broadcast.to(params.room).emit('newMsg',generateMsg('Compounder','Available for service mam !!'));
 callback();
    });
     
