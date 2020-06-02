@@ -38,7 +38,7 @@ io.on('connection',(socket)=>{
     
 
    socket.on('join',function(params,callback){
-if(!isRealString(params.name)|| !isRealString(params.room) ||!(params.name=="person1" || params.name=="person2"))
+if(!isRealString(params.name)|| !isRealString(params.room) ||!(params.name=="Doxab" || params.name=="Compounder"))
 {
     return callback('Invalid details ...')
 }
@@ -49,7 +49,7 @@ users.addUser(socket.id,params.name,params.room);
 io.to(params.room).emit('updateUserList',users.getUserList(params.room));
 if(params.name=="Doxab")
 {
-    socket.emit('newMsg',generateMsg('person2','Welcome ,person1 !!'));
+    socket.emit('newMsg',generateMsg('Compounder','Welcome ,Doxab !!'));
 
 }
 else
