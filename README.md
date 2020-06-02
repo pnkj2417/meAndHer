@@ -1,2 +1,2 @@
 # meAndHer
-this app donothing
+this app do nothing
