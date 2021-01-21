@@ -17,6 +17,6 @@
     "mocha": "^3.0.2",
     "moment": "^2.22.2",
     "mongoose": "^5.3.9",
-    "socket.io": "^2.1.1"
+    "socket.io": "^2.4.0"
   }
 }
